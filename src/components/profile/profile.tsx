@@ -1,7 +1,10 @@
 import { FC, ReactElement } from 'react';
 import { Avatar, Box, Typography } from '@mui/material'; // Using Box instead of div is that it provides props for flexbox statically built into it, box is kind of a div which can encapsulate components. "Typography" is a component that can use to style fonts
 
-export const Profile: FC = (): ReactElement => {
+import PropTypes from 'prop-types';
+
+export const Profile: FC = (props: any): ReactElement => {
+  const { name = 'Trung Nguyen' } = props;
   return (
     <Box
       display="flex"
@@ -18,12 +21,12 @@ export const Profile: FC = (): ReactElement => {
         }}
       >
         <Typography variant="h4" color="text.primary">
-          T
+          {`${name.substring(0, 1)}`}
         </Typography>
       </Avatar>
 
       <Typography variant="h6" color="text.primay">
-        Welcome, Trung Nguyen
+        {`Welcome, ${name}`}
       </Typography>
 
       <Typography variant="body1" color="text.primary">
@@ -31,4 +34,8 @@ export const Profile: FC = (): ReactElement => {
       </Typography>
     </Box>
   );
+};
+
+Profile.propTypes = {
+  name: PropTypes.string,
 };
