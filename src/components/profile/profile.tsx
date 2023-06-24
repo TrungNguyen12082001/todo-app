@@ -1,9 +1,20 @@
 import { FC, ReactElement } from 'react';
 import { Avatar, Box, Typography } from '@mui/material'; // Using Box instead of div is that it provides props for flexbox statically built into it, box is kind of a div which can encapsulate components. "Typography" is a component that can use to style fonts
 
+/** Interfaces and PropTypes, which one should to use? */
+// The major difference between prototypes and interfaces is that interfaces are type scriting and they are only available while developing application. TypeScript interfaces do not compile down to JavaScript and are only available while developing
+// Whereas proptypes are available in JavaScript as well. It kicks happen when code is executed in the browser and any errors related to prop types are logged to the browser console whereas TypeScript only helps while developing application with IDE.
+
 import PropTypes from 'prop-types';
 
-export const Profile: FC = (props: any): ReactElement => {
+interface IProfile {
+  name: string;
+}
+
+export const Profile: FC<IProfile> = (
+  props,
+): ReactElement => {
+  // FC<IProfile> means tell TypeScript that "props" will have a shape of IProfile interface
   const { name = 'Trung Nguyen' } = props;
   return (
     <Box
@@ -37,5 +48,5 @@ export const Profile: FC = (props: any): ReactElement => {
 };
 
 Profile.propTypes = {
-  name: PropTypes.string,
+  name: PropTypes.string.isRequired,
 };
