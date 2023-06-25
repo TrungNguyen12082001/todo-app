@@ -3,6 +3,7 @@ import { FC, ReactElement } from 'react';
 
 import { TaskDescriptionField } from './_taskDescriptionField';
 import { TaskTitleField } from './_taskTitleField';
+import { TaskDateField } from './_taskDateField';
 
 export const CreateTaskForm: FC = (): ReactElement => {
   return (
@@ -21,6 +22,7 @@ export const CreateTaskForm: FC = (): ReactElement => {
       <Stack sx={{ width: '100%' }} spacing={2}>
         <TaskTitleField />
         <TaskDescriptionField />
+        <TaskDateField />
       </Stack>
     </Box>
   );
