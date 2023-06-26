@@ -3,6 +3,7 @@ import { Avatar, Box, Typography } from '@mui/material';
 
 import { ITaskCounter } from './interfaces/ITaskCounter';
 import { Status } from '../createTaskForm/enums/Status';
+import { emitCorrectBorderColor } from './helpers/emitCorrectBorderColor';
 
 export const TaskCounter: FC<ITaskCounter> = (
   props,
@@ -24,7 +25,7 @@ export const TaskCounter: FC<ITaskCounter> = (
             width: '96px',
             height: '96px',
             marginBottom: '16px',
-            borderColor: 'warning.light',
+            borderColor: `${emitCorrectBorderColor(status)}`,
           }}
         >
           <Typography color="#ffffff" variant="h4">
