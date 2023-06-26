@@ -2,6 +2,7 @@ import { Box, Grid } from '@mui/material';
 import { FC, ReactElement } from 'react';
 import { format } from 'date-fns';
 import { TaskCounter } from '../taskCounter/taskCounter';
+import { Task } from '../task/task';
 
 export const TaskArea: FC = (): ReactElement => {
   /**PPPP: today's day,  month, date and year */
@@ -39,8 +40,9 @@ export const TaskArea: FC = (): ReactElement => {
           xs={10}
           md={8}
         >
-          <Box>Tasks Will Come Over Here</Box>
-          <Box>Tasks Will Come Over Here</Box>
+          <Task />
+          <Task />
+          <Task />
         </Grid>
       </Grid>
     </Grid>
