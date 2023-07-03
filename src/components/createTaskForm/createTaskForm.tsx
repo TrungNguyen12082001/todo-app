@@ -7,7 +7,12 @@ import {
   Alert,
   AlertTitle,
 } from '@mui/material';
-import { FC, ReactElement, useState } from 'react';
+import {
+  FC,
+  ReactElement,
+  useState,
+  useEffect,
+} from 'react';
 
 import { TaskDescriptionField } from './_taskDescriptionField';
 import { TaskTitleField } from './_taskTitleField';
@@ -31,6 +36,8 @@ export const CreateTaskForm: FC = (): ReactElement => {
   const [priority, setPriority] = useState<string>(
     Priority.normal,
   );
+  const [showSuccess, setShowSuccess] =
+    useState<boolean>(false);
 
   // Create task mutation
   const createTaskMutation = useMutation(
@@ -58,6 +65,21 @@ export const CreateTaskForm: FC = (): ReactElement => {
     createTaskMutation.mutate(task);
   }
 
+  /** Manage Side Effects inside the application */
+  useEffect(() => {
+    if (createTaskMutation.isSuccess) {
+      setShowSuccess(true);
+    }
+
+    const successTimeout = setTimeout(() => {
+      setShowSuccess(false);
+    }, 7000);
+
+    return () => {
+      clearTimeout(successTimeout);
+    };
+  }, [createTaskMutation.isSuccess]);
+
   return (
     <Box
       display="flex"
@@ -67,13 +89,15 @@ export const CreateTaskForm: FC = (): ReactElement => {
       px={4}
       my={6}
     >
-      <Alert
-        severity="success"
-        sx={{ width: '100%', marginBottom: '16px' }}
-      >
-        <AlertTitle>Success</AlertTitle>
-        The task has been created successfully
-      </Alert>
+      {showSuccess && (
+        <Alert
+          severity="success"
+          sx={{ width: '100%', marginBottom: '16px' }}
+        >
+          <AlertTitle>Success</AlertTitle>
+          The task has been created successfully
+        </Alert>
+      )}
 
       <Typography mb={2} component="h2" variant="h6">
         Create A Task
