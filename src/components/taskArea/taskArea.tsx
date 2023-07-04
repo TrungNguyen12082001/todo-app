@@ -11,6 +11,7 @@ import { Task } from '../task/task';
 import { useQuery } from '@tanstack/react-query';
 import { sendApiRequest } from '../../helpers/sendApiRequest';
 import { ITaskApi } from './interfaces/ITaskApi';
+import { Status } from '../createTaskForm/enums/Status';
 
 export const TaskArea: FC = (): ReactElement => {
   const { isError, isLoading, data, refetch } = useQuery({
@@ -78,7 +79,8 @@ export const TaskArea: FC = (): ReactElement => {
             Array.isArray(data) &&
             data.length > 0 &&
             data.map((each, index) => {
-              return (
+              return each.status === Status.todo ||
+                each.status === Status.inProgress ? (
                 <Task
                   key={index + each.priority}
                   id={each.id}
@@ -88,6 +90,8 @@ export const TaskArea: FC = (): ReactElement => {
                   priority={each.priority}
                   status={each.status}
                 />
+              ) : (
+                false
               );
             })
           )}
