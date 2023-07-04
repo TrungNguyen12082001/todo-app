@@ -1,4 +1,9 @@
-import { Box, Grid } from '@mui/material';
+import {
+  Box,
+  Grid,
+  Alert,
+  LinearProgress,
+} from '@mui/material';
 import { FC, ReactElement } from 'react';
 import { format } from 'date-fns';
 import { TaskCounter } from '../taskCounter/taskCounter';
@@ -8,7 +13,7 @@ import { sendApiRequest } from '../../helpers/sendApiRequest';
 import { ITaskApi } from './interfaces/ITaskApi';
 
 export const TaskArea: FC = (): ReactElement => {
-  const { error, isLoading, data, refetch } = useQuery({
+  const { isError, isLoading, data, refetch } = useQuery({
     queryKey: ['tasks'],
     queryFn: async () => {
       return await sendApiRequest<ITaskApi[]>(
@@ -52,9 +57,24 @@ export const TaskArea: FC = (): ReactElement => {
           xs={10}
           md={8}
         >
-          <Task />
-          <Task />
-          <Task />
+          {isError && (
+            <Alert severity="error">
+              There was an error fetching your tasks
+            </Alert>
+          )}
+
+          {!isError &&
+            Array.isArray(data) &&
+            data.length === 0 && (
+              <Alert severity="warning">
+                You do not have any tasks created yet. Start
+                by creating some tasks
+              </Alert>
+            )}
+
+          <Task id="123" />
+          <Task id="123" />
+          <Task id="123" />
         </Grid>
       </Grid>
     </Grid>
