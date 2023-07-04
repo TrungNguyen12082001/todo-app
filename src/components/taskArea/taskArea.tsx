@@ -32,11 +32,23 @@ export const TaskArea: FC = (): ReactElement => {
   const updateTaskMutation = useMutation(
     (data: IUpdateTask) =>
       sendApiRequest(
-        'http:localhost:3200/tasks',
+        'http://localhost:3200/tasks',
         'PUT',
         data,
       ),
   );
+
+  function onStatusChangeHandler(
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: string,
+  ) {
+    updateTaskMutation.mutate({
+      id,
+      status: e.target.checked
+        ? Status.inProgress
+        : Status.todo,
+    });
+  }
 
   /**PPPP: today's day,  month, date and year */
   return (
@@ -104,6 +116,7 @@ export const TaskArea: FC = (): ReactElement => {
                   description={each.description}
                   priority={each.priority}
                   status={each.status}
+                  onStatusChange={onStatusChangeHandler}
                 />
               ) : (
                 false
