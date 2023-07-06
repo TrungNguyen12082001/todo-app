@@ -13,6 +13,7 @@ export default function ComposeContext(
   return (
     <>
       {components.reduceRight((acc, Comp: any) => {
+        // accumulator, Component. Nesting all the components that we are getting inside the compose context as a prop, as children to each other
         return <Comp>{acc}</Comp>;
       }, children)}
     </>

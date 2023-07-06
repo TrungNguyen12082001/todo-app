@@ -2,6 +2,8 @@ import { FC, ReactElement } from 'react'; // FC: return a function component and
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { customTheme } from './theme/customTheme';
 import { DashBoard } from './pages/dashboard/dashboard';
+import ComposeContext from './context/Compose.context';
+import { rootContext } from './context/root.context';
 
 import {
   QueryClient,
@@ -16,10 +18,12 @@ const App: FC = (): ReactElement => {
   // set ReactQueryDevtools with initialIsOpen = false means open the React query dev tools in a minimized state.
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={customTheme}>
-        <CssBaseline />
-        <DashBoard />
-      </ThemeProvider>
+      <ComposeContext components={rootContext}>
+        <ThemeProvider theme={customTheme}>
+          <CssBaseline />
+          <DashBoard />
+        </ThemeProvider>
+      </ComposeContext>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
