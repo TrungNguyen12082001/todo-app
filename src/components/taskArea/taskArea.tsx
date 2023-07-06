@@ -72,7 +72,7 @@ export const TaskArea: FC = (): ReactElement => {
   }
 
   function markCompleteHandler(
-    e:
+    _e:
       | React.MouseEvent<HTMLButtonElement>
       | React.MouseEvent<HTMLAnchorElement>,
     id: string,
