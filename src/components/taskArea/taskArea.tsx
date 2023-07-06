@@ -33,7 +33,7 @@ export const TaskArea: FC = (): ReactElement => {
     queryKey: ['tasks'],
     queryFn: async () => {
       return await sendApiRequest<ITaskApi[]>(
-        'http://localhost:3200/tasks',
+        'https://todo-app-api-trungnguyen.onrender.com/tasks',
         'GET',
       );
     },
@@ -43,7 +43,7 @@ export const TaskArea: FC = (): ReactElement => {
   const updateTaskMutation = useMutation(
     (data: IUpdateTask) =>
       sendApiRequest(
-        'http://localhost:3200/tasks',
+        'https://todo-app-api-trungnguyen.onrender.com/tasks',
         'PUT',
         data,
       ),
