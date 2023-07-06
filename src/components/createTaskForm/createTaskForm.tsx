@@ -12,6 +12,7 @@ import {
   ReactElement,
   useState,
   useEffect,
+  useContext,
 } from 'react';
 
 import { TaskDescriptionField } from './_taskDescriptionField';
@@ -23,6 +24,7 @@ import { Priority } from './enums/Priority';
 import { useMutation } from '@tanstack/react-query';
 import { sendApiRequest } from '../../helpers/sendApiRequest';
 import { ICreateTask } from '../taskArea/interfaces/ICreateTask';
+import { TaskStatusChangedContext } from '../../context';
 
 export const CreateTaskForm: FC = (): ReactElement => {
   const [title, setTitle] = useState<string | undefined>(
@@ -38,6 +40,10 @@ export const CreateTaskForm: FC = (): ReactElement => {
   );
   const [showSuccess, setShowSuccess] =
     useState<boolean>(false);
+
+  const tasksUpdatedContext = useContext(
+    TaskStatusChangedContext,
+  );
 
   // Create task mutation
   const createTaskMutation = useMutation(
@@ -69,6 +75,7 @@ export const CreateTaskForm: FC = (): ReactElement => {
   useEffect(() => {
     if (createTaskMutation.isSuccess) {
       setShowSuccess(true);
+      tasksUpdatedContext.toggle(); // handle real-time update once create task successfully
     }
 
     const successTimeout = setTimeout(() => {
